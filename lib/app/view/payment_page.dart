@@ -107,81 +107,100 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Descrição',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    produtoController.produto.descricao,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Quantidade',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Observer(builder: (_) {
-                    return Row(
+            Container(
+              height: (2 * MediaQuery.of(context).size.height / 3),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.white,
-                          ),
-                          width: 150,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    produtoController.decrementQtdCliente();
-                                  },
-                                  icon: Icon(Icons.remove)),
-                              Text(
-                                '${produtoController.quantidadeCliente}',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    produtoController.incrementQtdCliente();
-                                  },
-                                  icon: Icon(Icons.add)),
-                            ],
-                          ),
+                        Text(
+                          'Descrição',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 40),
-                          child: Text(
-                            'Total: ${(produtoController.produto.preco * produtoController.quantidadeCliente).toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          produtoController.produto.descricao,
+                          style: TextStyle(fontSize: 15),
                         ),
                       ],
-                    );
-                  }),
-                  SizedBox(
-                    height: 120,
-                  ),
-                ],
+                    ),
+                    /* SizedBox(
+                      height: 10,
+                    ), */
+                    Column(
+                      //mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Quantidade',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Observer(builder: (_) {
+                          return Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: 150,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          produtoController
+                                              .decrementQtdCliente();
+                                        },
+                                        icon: Icon(Icons.remove)),
+                                    Text(
+                                      '${produtoController.quantidadeCliente}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          produtoController
+                                              .incrementQtdCliente();
+                                        },
+                                        icon: Icon(Icons.add)),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 40),
+                                child: Text(
+                                  'Total: ${(produtoController.produto.preco * produtoController.quantidadeCliente).toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
+                    /* SizedBox(
+                      height: 120,
+                    ), */
+                  ],
+                ),
               ),
             ),
           ],
@@ -208,7 +227,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 //Mandando dados do qrCode para a máquina via Eugênio.
                 print('Enviando dados para o Eugênio');
                 EugenioConnetion eugenioConnetion = EugenioConnetion();
-                eugenioConnetion.testeOseias().then((value) {
+                eugenioConnetion.validacaoEugenio().then((value) {
                   if (value.statusCode == 200) {
                     print('Dado enviado com sucesso');
                   } else {
